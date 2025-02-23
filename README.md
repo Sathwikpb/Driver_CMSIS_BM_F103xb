@@ -97,6 +97,5 @@ int main(void) {
 - Use DMA for efficient data transfer.
 - Add interrupt-driven UART handling.
 
----
-This README provides an overview of the code, register configurations, and expected behavior. 🚀
+
 
