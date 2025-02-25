@@ -1,24 +1,23 @@
+#include "stm32f103xb.h"
 #include "i2c.h"
 
+#define I2C_SLAVE_ADDR 0x90
+
 int main(void) {
-    I2C1_Init();
+    uint8_t txData[] = {0x12, 0x34};
+    uint8_t rxData[2];
 
-//    uint8_t dataToWrite = 0xAA;
-//    uint8_t receivedData;
+    // Initialize I2C1 on GPIOB (SCL = PB6, SDA = PB7)
+    I2C_Init(I2C1, GPIOB, 6, 7);
 
+    // Check if device is ready
+    if (I2C_IsDeviceReady(I2C1, I2C_SLAVE_ADDR)) {
+        // Write to memory address 0x10
+        I2C_Mem_Write(I2C1, I2C_SLAVE_ADDR, 0x10, txData, 2);
 
-//    if (I2C1_IsDeviceReady(0x50)) {
-//        I2C1_Master_Transmit(0x50, &dataToWrite, 1);
-//        I2C1_Master_Receive(0x50, &receivedData, 1);
-//    }
-
-    // Memory Read/Write Example
-    uint8_t memoryData[2] = {0x12, 0x34};
-    uint8_t readBuffer[2];
-
-    I2C1_Mem_Write(0x6A, 0x10, memoryData, 2);
-    I2C1_Mem_Read(0x50, 0x10, readBuffer, 2);
-    I2C1_Slave_Transmit(memoryData, sizeof(memoryData)-1);
+        // Read back from memory address 0x10
+        I2C_Mem_Read(I2C1, I2C_SLAVE_ADDR, 0x10, rxData, 2);
+    }
 
     while (1);
 }
