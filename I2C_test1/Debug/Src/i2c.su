@@ -1,0 +1,8 @@
+../Src/i2c.c:3:6:I2C1_Init	4	static
+../Src/i2c.c:25:9:I2C1_IsDeviceReady	16	static
+../Src/i2c.c:42:6:I2C1_Master_Transmit	24	static
+../Src/i2c.c:59:6:I2C1_Master_Receive	24	static
+../Src/i2c.c:75:6:I2C1_Slave_Transmit	24	static
+../Src/i2c.c:87:6:I2C1_Slave_Receive	24	static
+../Src/i2c.c:97:6:I2C1_Mem_Write	16	static
+../Src/i2c.c:102:6:I2C1_Mem_Read	16	static
