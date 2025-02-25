@@ -17,9 +17,22 @@ This repository provides an implementation of an I2C1 peripheral driver for an S
 ### Installation
 1. Clone this repository:
    ```sh
-   https://github.com/Sathwikpb/Peripheral_Drivers_F103xb.git
+  git clone https://github.com/your-repo/I2C1-Driver.git 
    ```
 2. Include `i2c.h` and `i2c.c` in your STM32 project.
+
+### Pin Configuration
+I2C1 uses the following GPIO pins on the STM32 microcontroller:
+- **PB6** - I2C1 SCL (Clock Line)
+- **PB7** - I2C1 SDA (Data Line)
+
+To change the default pin configuration, modify the GPIO initialization in `I2C1_Init()`:
+```c
+// Change PB6 and PB7 to alternative GPIO pins if needed
+GPIOB->CRL &= ~((0xF << 24) | (0xF << 28));
+GPIOB->CRL |= ((0xB << 24) | (0xB << 28));
+```
+Ensure that the chosen pins support I2C functionality in the STM32 datasheet.
 
 ### Usage
 #### 1. Initialize I2C1
