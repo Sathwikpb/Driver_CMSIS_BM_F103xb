@@ -10,19 +10,18 @@ This project demonstrates the use of **ADC triggered by the positive edge of a P
 - **Data Alignment**: ADC is configured for right alignment.
 
 ## Hardware Requirements
-- **STM32F4xx Development Board**
+- **STM32F103xb Development Board**
 - **UART Connection for Serial Debugging**
 - **PWM Signal Output Pin** (Connected to an external circuit if needed)
 
 ## Software Requirements
-- STM32CubeIDE / Keil / IAR Embedded Workbench
+- STM32CubeIDE 
 - STM32 HAL Library
 
 ## Configuration Details
 ### ADC Configuration
 - **Trigger Source**: External trigger `ADC_EXTERNALTRIGCONV_T1_CC1`
 - **Channel**: ADC_CHANNEL_1
-- **Sampling Time**: 1.5 cycles
 - **Conversion Mode**: Single conversion mode
 
 ### Timer 1 (PWM) Configuration
@@ -79,12 +78,9 @@ ADC Value: 1234
 ADC Value: 1357
 ADC Value: 1402
 ```
+![image](https://github.com/user-attachments/assets/d73360df-fe5f-45c1-836a-43cc373eb255)
 
 ## Future Enhancements
 - Implement DMA-based ADC reading for better efficiency.
-- Add an LCD or OLED display for real-time ADC value visualization.
-- Optimize ADC sampling time for improved accuracy.
 
-## License
-This project is open-source and released under the MIT License.
 
