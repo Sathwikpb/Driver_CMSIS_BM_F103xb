@@ -100,24 +100,26 @@ int main(void) {
 	MX_TIM1_Init();
 	/* USER CODE BEGIN 2 */
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-	TIM1->CCR1=100;
-
+	TIM1->CCR1=1000;
+	HAL_ADC_Start(&hadc1);
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	while (1) {
-		HAL_ADC_Start(&hadc1);
-		HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY); // Wait for conversion
-		adc_value = HAL_ADC_GetValue(&hadc1); // Read ADC value
-		char msg[20];  // Buffer to store the string
-		sprintf(msg, "ADC: %lu\r\n", adc_value);  // Convert to ASCII string
-		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-		printf("ADC Value: %lu \n", adc_value); // Debug output
-		/* USER CODE END WHILE */
+	while (1)
+	{
+	    if (HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY) == HAL_OK)
+	    {
+	        adc_value = HAL_ADC_GetValue(&hadc1);
 
-		/* USER CODE BEGIN 3 */
+	        char msg[20];
+	        sprintf(msg, "ADC: %lu\r\n", adc_value);
+	        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+	        printf("ADC Value: %lu\n", adc_value);
+	    }
 	}
+
 	/* USER CODE END 3 */
 }
 
@@ -226,9 +228,9 @@ static void MX_TIM1_Init(void) {
 
 	/* USER CODE END TIM1_Init 1 */
 	htim1.Instance = TIM1;
-	htim1.Init.Prescaler = 3200;
+	htim1.Init.Prescaler = 32000;
 	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim1.Init.Period = 1000;
+	htim1.Init.Period = 10000;
 	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim1.Init.RepetitionCounter = 0;
 	htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
